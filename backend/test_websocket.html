@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fire Detection Camera Test</title>
+</head>
+<body>
+
+<h2>Fire Detection System</h2>
+
+<button onclick="startCamera()">Open Camera</button>
+<button onclick="sendMessage()">Send Test Message</button>
+
+<br><br>
+
+<video
+    id="video"
+    width="640"
+    height="480"
+    autoplay
+    playsinline
+    style="border:1px solid black;"
+></video>
+
+<div id="messages"></div>
+
+<script>
+    const ws = new WebSocket("ws://127.0.0.1:8000/ws/alerts");
+    const video = document.getElementById("video");
+
+    ws.onopen = () => {
+        addMessage("Connected to WebSocket server");
+    };
+
+    ws.onmessage = (event) => {
+        addMessage("Server: " + event.data);
+    };
+
+    ws.onclose = () => {
+        addMessage("WebSocket disconnected");
+    };
+
+    function sendMessage() {
+        ws.send("Frontend camera connected");
+    }
+
+    async function startCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: false
+            });
+
+            video.srcObject = stream;
+            addMessage("Camera started successfully");
+        } catch (error) {
+            console.error(error);
+            addMessage("Camera access denied or unavailable");
+        }
+    }
+
+    function addMessage(message) {
+        const div = document.getElementById("messages");
+        div.innerHTML += `<p>${message}</p>`;
+    }
+</script>
+
+</body>
+</html>

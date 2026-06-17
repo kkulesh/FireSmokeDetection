@@ -1,0 +1,79 @@
+# =========================
+# Node.js / React
+# =========================
+node_modules/
+dist/
+build/
+.next/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+.env/
+
+# =========================
+# FastAPI / ASGI
+# =========================
+*.log
+logs/
+*.pid
+
+# uvicorn / hypercorn
+*.pid
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# ML / YOLO / Deep Learning
+# =========================
+runs/
+weights/
+checkpoints/
+models/
+
+*.pt
+*.pth
+*.onnx
+*.engine
+*.tflite
+
+# =========================
+# Datasets (IMPORTANT)
+# =========================
+dataset/
+datasets/
+data/
+raw_data/
+processed_data/
+
+# =========================
+# Uploads / cache / temp
+# =========================
+uploads/
+tmp/
+temp/
+media/
+cache/
+frontend/public/test_set/*.mp4
+frontend/public/test_set/*.avi
+frontend/public/test_set/*.mov
