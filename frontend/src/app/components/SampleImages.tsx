@@ -6,19 +6,19 @@ interface SampleImagesProps {
 
 const samples = [
   {
-    url: 'https://images.unsplash.com/photo-1767672857994-73a27b723506?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmaXJlJTIwc21va2UlMjBkZXRlY3RvcnxlbnwxfHx8fDE3NzM4ODcxNTR8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    url: '/test_set/test_img_1.jpg',
     label: 'Sample 1'
   },
   {
-    url: 'https://images.unsplash.com/photo-1648464676756-1ca51d0c4688?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmb3Jlc3QlMjBmaXJlJTIwZmxhbWVzfGVufDF8fHx8MTc3Mzg4NzE1NHww&ixlib=rb-4.1.0&q=80&w=1080',
+    url: '/test_set/test_img_2.jpg',
     label: 'Sample 2'
   },
   {
-    url: 'https://images.unsplash.com/photo-1764239651070-1ffc8f96a4ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidWlsZGluZyUyMHNtb2tlJTIwZmlyZXxlbnwxfHx8fDE3NzM4ODcxNTV8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    url: '/test_set/test_img_3.jpg',
     label: 'Sample 3'
   },
   {
-    url: 'https://images.unsplash.com/photo-1748260526738-056fceff3cfe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aWxkZmlyZSUyMG9yYW5nZSUyMGZsYW1lc3xlbnwxfHx8fDE3NzM4ODcxNTV8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    url: '/test_set/test_img_4.webp',
     label: 'Sample 4'
   },
 ];
