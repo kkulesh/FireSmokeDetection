@@ -90,7 +90,7 @@ class VideoService:
                 import asyncio
                 asyncio.create_task(manager.broadcast(message))
 
-    def extract_frames_from_video_bytes(self, video_bytes: bytes, sample_rate: int = 5) -> List:
+    def extract_frames_from_video_bytes(self, video_bytes: bytes, sample_rate: int = 5, filename: str | None = None, content_type: str | None = None) -> List:
         """
         Extract frames from video bytes at specified sample rate
         
@@ -101,18 +101,42 @@ class VideoService:
         Returns:
             List of frames (numpy arrays)
         """
+        # Determine a sensible suffix based on provided filename or content type
+        suffix = '.mp4'
+        try:
+            if filename and '.' in filename:
+                suffix = '.' + filename.split('.')[-1]
+            elif content_type and '/' in content_type:
+                ext = content_type.split('/')[-1]
+                # common mapping
+                if ext == 'x-matroska' or ext == 'webm':
+                    suffix = '.webm'
+                else:
+                    suffix = f'.{ext}'
+        except Exception:
+            suffix = '.mp4'
+
         # Create temporary file
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as tmp_file:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp_file:
             tmp_path = tmp_file.name
             tmp_file.write(video_bytes)
 
         frames = []
         try:
+            # Try to open with default backend first
             cap = cv2.VideoCapture(tmp_path)
-            
+
+            # If that fails, try forcing FFMPEG backend (if available in this OpenCV build)
+            if not cap.isOpened():
+                logger.info(f"Default cv2.VideoCapture failed for {tmp_path}, attempting FFMPEG backend")
+                try:
+                    cap = cv2.VideoCapture(tmp_path, getattr(cv2, 'CAP_FFMPEG', 0))
+                except Exception as e:
+                    logger.warning(f"Error trying CAP_FFMPEG: {e}")
+
             if not cap.isOpened():
                 logger.error(f"Cannot open video file: {tmp_path}")
-                raise ValueError("Unable to open video file")
+                raise ValueError("Unable to open video file (unsupported format or missing codec)")
 
             frame_count = 0
             extracted_count = 0

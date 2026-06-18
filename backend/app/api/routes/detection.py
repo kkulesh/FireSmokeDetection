@@ -64,6 +64,7 @@ async def run_detection_file(
     Detect fire/smoke objects in an uploaded image or video file.
     """
     try:
+        logger.info(f"Incoming upload to /detect/file: filename={getattr(file, 'filename', None)} content_type={getattr(file, 'content_type', None)}")
         file_bytes = await file.read()
         if not file_bytes:
             raise HTTPException(status_code=400, detail="Empty file")
@@ -72,7 +73,7 @@ async def run_detection_file(
         if file.content_type and file.content_type.startswith("video/"):
             # Handle video file
             logger.info(f"Processing video file: {file.filename}")
-            frames = video_service.extract_frames_from_video_bytes(file_bytes, sample_rate=5)
+            frames = video_service.extract_frames_from_video_bytes(file_bytes, sample_rate=5, filename=getattr(file, 'filename', None), content_type=getattr(file, 'content_type', None))
             
             if not frames:
                 raise HTTPException(status_code=400, detail="No frames extracted from video")
